@@ -1,4 +1,4 @@
-﻿namespace Dsw2026Ej5.Views;
+namespace Dsw2026Ej5.Views;
 
 public class ConsoleView
 {
@@ -67,25 +67,24 @@ public class ConsoleView
         LimpiarPantalla();
         string[] columnas = { "Patente", "Vehículo", "Tipo", "Cap. Carga", "Km/l", "Año", "L.Extra", "Kms a recorrer" };
         DibujarEncabezado(columnas);
-        DibjuarDatos(columnas.Length);
+        DibujarDatos(columnas.Length);
         DibujarLinea();
         Console.Write("\n");
         Console.Write("\n");
-        Console.WriteLine("Presione una tecla para calcular el total de consumos...");
-        Console.ReadLine();
+        
         Dictionary<string, double> vehiculos = new Dictionary<string, double>();
         foreach (VehiculoViewModel vehiculo in _vehiculos)
         {
             vehiculos.Add(vehiculo.GetPatente(), vehiculo.GetKmARecorrer());
         }
+
         (double, double) totalConsumos = Controlador.CalcularConsumos(vehiculos);
-        DibujarLinea();
+        
         Console.WriteLine($"Total consumo Vehículos Eléctricos: {totalConsumos.Item1} kWh");
         Console.WriteLine($"Total consumo Vehículos Combustible: {totalConsumos.Item2} Litros");
         DibujarLinea();
         Console.Write("\n");
-        Console.Write("\n");
-        Console.WriteLine("Presione una tecla para salir...");
+        Console.WriteLine("Presione una tecla para volver al menú...");
         Console.ReadLine();
     }
     private static void DibujarEncabezado(params string[] columnas)
@@ -102,7 +101,7 @@ public class ConsoleView
         Console.Write("\n");
         DibujarLinea();
     }
-    private static void DibjuarDatos(int columnas)
+    private static void DibujarDatos(int columnas)
     {
         int ancho = Console.WindowWidth / columnas;
         foreach (var vehiculo in _vehiculos)
@@ -131,6 +130,7 @@ public class ConsoleView
             Console.Write("|");
             CentrarTexto(vehiculo.GetKmARecorrer().ToString(), out l, ancho - 1, false);
             Console.Write("".PadRight(ancho - 1 - l));
+            Console.Write("\n");
         }
     }
 }
